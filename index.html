@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quotes.com</title>
+    <link
+      href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="flex flex-col justify-center items-center h-screen">
+    <h1 class="mb-8 text-2xl font-bold">Quotes of the Day</h1>
+    <h3 class="font-serif text-3xl w-5/6 md:w-1/3 mb-2"></h3>
+    <h6 class="italic text-md mb-4">- by <span></span></h6>
+    <button
+      onclick="generate()"
+      class="
+        bg-blue-500
+        hover:bg-blue-400
+        text-white
+        font-bold
+        py-1
+        px-2
+        border-b-4 border-blue-700
+        hover:border-blue-500
+        rounded
+      "
+    >
+      Generate
+    </button>
+    <script>
+      generate();
+      function generate() {
+        fetch("https://api.quotable.io/random")
+          .then((r) => r.json())
+          .then((quote) => {
+            document.querySelector("h3").innerText = quote.content;
+            document.querySelector("h6 span").innerText = quote.author;
+          });
+      }
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.clouds.min.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        VANTA.CLOUDS({
+          el: "body",
+          mouseControls: true,
+          touchControls: true,
+          gyroControls: false,
+          minHeight: 200.0,
+          minWidth: 200.0,
+        });
+      });
+    </script>
+  </body>
+</html>
